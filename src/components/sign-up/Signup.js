@@ -2,29 +2,43 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { NavLink } from 'react-router-dom';
 import { Grid, Paper, TextField, Button } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './Signup.scss';
 
 class Signup extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstname: '',
+            lastname: '',
+            birdthday: '',
+            email: '',
+            password: '',
+            phone: '',
+            address: ''
+        }
+    }
+    
+    handleChange = (event) => {
+        let target = event.target;
+        let name = target.name;
+        let value = target.value;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    onSubmit = (event) => {
+        event.preventDefault();
+        this.props.onSubmit(this.state);
+    }
+
     render() {
         return (
-            // <div className="Signup">
-            //     <div className="Signup__content">
-            //         <form>
-            //             <Typography variant="display2" gutterBottom>
-            //                 Sign up
-            //             </Typography>
-
-            //         </form>
-            //         <div className="Signup__footer">
-            //             <NavLink className="link" to='/signup'>Registry now!</NavLink>
-            //         </div>
-            //     </div>
-            // </div>
             <Paper className="Signup">
                 <Grid container spacing={16}>
                     <Grid item xs={12} sm container>
-                        <form>
+                        <form onSubmit={this.onSubmit}>
                             <Grid item xs container direction="column" className="Signup__content" spacing={16}>
                                 <Grid item xs>
                                     <Typography variant="display2" align="center" gutterBottom>
@@ -35,6 +49,9 @@ class Signup extends Component {
                                         label="Firstname"
                                         margin="normal"
                                         className="form-control"
+                                        name="firstname"
+                                        value={this.state.firstname}
+                                        onChange={this.handleChange}
                                         variant="outlined"
                                         required={true}
                                     />
@@ -43,6 +60,9 @@ class Signup extends Component {
                                         label="Lastname"
                                         margin="normal"
                                         className="form-control"
+                                        name="lastname"
+                                        value={this.state.lastname}
+                                        onChange={this.handleChange}
                                         variant="outlined"
                                         required={true}
                                     />
@@ -51,6 +71,9 @@ class Signup extends Component {
                                         label="Birthday"
                                         type="date"
                                         className="form-control"
+                                        name="birdthday"
+                                        value={this.state.birdthday}
+                                        onChange={this.handleChange}
                                         InputLabelProps={{
                                             shrink: true,
                                         }}
@@ -61,6 +84,9 @@ class Signup extends Component {
                                         label="Email"
                                         margin="normal"
                                         className="form-control"
+                                        name="email"
+                                        value={this.state.email}
+                                        onChange={this.handleChange}
                                         variant="outlined"
                                         required={true}
                                     />
@@ -69,6 +95,9 @@ class Signup extends Component {
                                         label="Password"
                                         margin="normal"
                                         className="form-control"
+                                        name="password"
+                                        value={this.state.password}
+                                        onChange={this.handleChange}
                                         variant="outlined"
                                         required={true}
                                     />
@@ -77,6 +106,9 @@ class Signup extends Component {
                                         label="Phone"
                                         margin="normal"
                                         className="form-control"
+                                        name="phone"
+                                        value={this.state.phone}
+                                        onChange={this.handleChange}
                                         variant="outlined"
                                     />
                                     <TextField
@@ -85,22 +117,12 @@ class Signup extends Component {
                                         multiline
                                         rowsMax="4"
                                         className="form-control"
+                                        name="address"
+                                        value={this.state.address}
+                                        onChange={this.handleChange}
                                         margin="normal"
                                         variant="outlined"
                                     />
-                                    <input
-                                        accept="image/*"
-                                        id="contained-button-file"
-                                        multiple
-                                        type="file"
-                                        style={{ display: 'none' }}
-                                    />
-                                    <label htmlFor="contained-button-file">
-                                        <Button variant="contained" component="span">
-                                            Upload
-                                            <CloudUploadIcon />
-                                        </Button>
-                                    </label>
                                 </Grid>
                                 <Button
                                     type="submit"
